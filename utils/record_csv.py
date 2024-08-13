@@ -1,0 +1,85 @@
+import csv
+import pandas as pd
+from datetime import datetime
+import pathlib
+
+from utils.log import get_logger
+logger = get_logger(__name__)
+
+
+# 文件路径
+CSV_FILE_PATH = '../query_data.csv'
+
+
+class CSVRecordHandler:
+    def __init__(self, csv_file_path=None):
+        if csv_file_path is None:
+            csv_file_path = CSV_FILE_PATH
+        self._CSV_FILE_PATH = csv_file_path
+        self.init_csv()
+
+    def init_csv(self):
+        # 检查文件是否存在
+        if not pathlib.Path(self._CSV_FILE_PATH).exists():
+            # 如果文件不存在，则创建文件并写入表头
+            with open(self._CSV_FILE_PATH, mode='w', newline='', encoding='utf-8') as file:
+                writer = csv.writer(file)
+                writer.writerow(['timestamp', 'water_balance', 'electricity_balance', 'air_conditioner_balance'])
+            logger.debug(f'CSV file {self._CSV_FILE_PATH} created')
+        else:
+            logger.debug("CSV file already exists.")
+
+    def record(self, data):
+        """
+        :param data['timestamp','water_balance','electricity_balance','air_conditioner_balance']
+        :return:
+        """
+        with open(self._CSV_FILE_PATH, mode='a', newline='', encoding='utf-8') as file:
+            writer = csv.writer(file)
+            writer.writerow([
+                data['timestamp'],
+                data['water_balance'],
+                data['electricity_balance'],
+                data['air_conditioner_balance']
+            ])
+
+    def get_latest(self):
+        # 读取CSV文件的最后一行
+        last_row = pd.read_csv(self._CSV_FILE_PATH,
+                               skiprows=lambda x: x != 0 and x != (sum(1 for line in open(self._CSV_FILE_PATH)) - 1))
+        return {
+            'timestamp': last_row['timestamp'][0],
+            'water_balance': last_row['water_balance'][0],
+            'electricity_balance': last_row['electricity_balance'][0],
+            'air_conditioner_balance': last_row['air_conditioner_balance'][0]
+        }
+
+    def get(self, line: int):
+        csv_data = pd.read_csv(self._CSV_FILE_PATH)
+        line_data = csv_data.iloc[line]
+        return {
+            'timestamp': line_data['timestamp'],
+            'water_balance': line_data['water_balance'],
+            'electricity_balance': line_data['electricity_balance'],
+            'air_conditioner_balance': line_data['air_conditioner_balance']
+        }
+
+
+if __name__ == '__main__':
+    CSV_FILE_PATH = '../test_data.csv'
+    # 示例数据
+    query_response = {
+        'timestamp': datetime.now().isoformat(),
+        'water_balance': 123.45,
+        'electricity_balance': 67.89,
+        'air_conditioner_balance': 45.67
+    }
+
+    # 初始化和记录数据
+    recorder = CSVRecordHandler(csv_file_path=CSV_FILE_PATH)
+    # recorder.record(query_response)
+
+    print(recorder.get_latest())
+    print(recorder.get(1))
+    print(recorder.get(-2))
+    print(recorder.get(-1))
