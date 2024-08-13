@@ -1,6 +1,8 @@
 import configparser
 import pathlib
 
+CONFIG_PATH = pathlib.Path('data/configs/config.ini')
+
 
 class Config(configparser.ConfigParser):
     def __init__(self):
@@ -40,9 +42,9 @@ class Config(configparser.ConfigParser):
             }
         }
 
-        if not pathlib.Path('../configs/config.ini').exists():
-            pathlib.Path('../configs/config.ini').touch()
-        with open('../configs/config.ini', 'w') as configfile:
+        if not CONFIG_PATH.exists():
+            CONFIG_PATH.touch()
+        with CONFIG_PATH.open('w') as configfile:
             self.write(configfile)
 
     def read(self, *args, **kwargs):

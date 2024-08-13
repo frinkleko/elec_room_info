@@ -19,12 +19,13 @@ def start_periodic_queries(conf: Config):
         query.record_data()
         if monitor is not None:
             monitor.check()
+            monitor.deposit()
         time.sleep(eval(conf.get('record_csv', 'query_interval', fallback=QUERY_INTERVAL)))
 
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument('-c', '--config', help='config file', default="config.ini")
+    parser.add_argument('-c', '--config', help='config file', default="data/configs/config.ini")
     args = parser.parse_args()
 
     config = Config()

@@ -1,8 +1,8 @@
 """余额监控插件"""
-from utils.record_csv import CSVRecordHandler
-from utils.mail import EmailSender
+from elec_room_info.utils.record_csv import CSVRecordHandler
+from elec_room_info.utils.mail import EmailSender
 
-from utils.log import get_logger
+from elec_room_info.utils.log import get_logger
 logger = get_logger(__name__)
 
 
@@ -52,9 +52,9 @@ class BalanceMonitor:
 
 
 if __name__ == '__main__':
-    from utils.config import Config
+    from elec_room_info.utils.config import Config
     import os
-    os.chdir('..')
+    os.chdir('../..')
     test_config = Config()
     test_config.read('test_config.ini', encoding='utf-8')
     monitor = BalanceMonitor(config=test_config)

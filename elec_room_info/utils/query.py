@@ -1,11 +1,11 @@
 import random
 import requests
 from datetime import datetime
-from utils.record_csv import CSVRecordHandler
+from .record_csv import CSVRecordHandler
 
-from utils.config import Config
+from .config import Config
 
-from utils.log import get_logger
+from .log import get_logger
 logger = get_logger(__name__)
 
 
@@ -86,7 +86,7 @@ class ElecRoomQuery:
         logger.debug(f'ELE_FORM_DATA: {self._ELE_FORM_DATA}')
         logger.debug(f'AIR_FORM_DATA: {self._AIR_FORM_DATA}')
 
-        self._CSV_FILE_PATH = kwargs.get('csv_file_path', None)
+        self._CSV_FILE_PATH = self._config['record_csv']['csv_file_path']
 
     def _get_session_from_auth_link(self, auth_link):
         """企业微信 > 校园一卡通， 分享的连接"""
