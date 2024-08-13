@@ -1,4 +1,4 @@
-from query import ElecRoomQuery
+from utils.query import ElecRoomQuery
 from utils.config import Config
 from addon import BalanceMonitor
 

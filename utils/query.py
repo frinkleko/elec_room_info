@@ -195,5 +195,5 @@ class ElecRoomQuery:
 
 
 if __name__ == '__main__':
-    query = ElecRoomQuery(auth_link=None, session_id=None, csv_file_path='test_data.csv')
+    query = ElecRoomQuery(auth_link=None, session_id=None, csv_file_path='records/test_data.csv')
     query.record_data()

@@ -8,7 +8,7 @@ logger = get_logger(__name__)
 
 
 # 文件路径
-CSV_FILE_PATH = '../query_data.csv'
+CSV_FILE_PATH = '../records/query_data.csv'
 
 
 class CSVRecordHandler:
@@ -66,7 +66,7 @@ class CSVRecordHandler:
 
 
 if __name__ == '__main__':
-    CSV_FILE_PATH = '../test_data.csv'
+    CSV_FILE_PATH = '../records/test_data.csv'
     # 示例数据
     query_response = {
         'timestamp': datetime.now().isoformat(),

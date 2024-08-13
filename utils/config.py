@@ -1,4 +1,5 @@
 import configparser
+import pathlib
 
 
 class Config(configparser.ConfigParser):
@@ -39,7 +40,9 @@ class Config(configparser.ConfigParser):
             }
         }
 
-        with open('../config.ini', 'w') as configfile:
+        if not pathlib.Path('../configs/config.ini').exists():
+            pathlib.Path('../configs/config.ini').touch()
+        with open('../configs/config.ini', 'w') as configfile:
             self.write(configfile)
 
     def read(self, *args, **kwargs):
@@ -57,7 +60,7 @@ if __name__ == '__main__':
     # Config().auto_config()
     config = Config()
     config.auto_config()
-    config.read('config.ini')
-    if eval(config['addon']['balance_monitor']):
-        print('eval true')
-    config.save('config.ini')
+    # config.read('config.ini')
+    # if eval(config['addon']['balance_monitor']):
+    #     print('eval true')
+    # config.save('config.ini')
