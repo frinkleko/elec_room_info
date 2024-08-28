@@ -1,12 +1,12 @@
 general: {}
 addon:
   balance_monitor: true
+  deposit_monitor: true
 query:
   auth_link: ''
   session_id: ''
 record_csv:
   csv_file_path: data/records/query_data.csv
-  query_interval: 1200
 email:
   sender_email: mail@example.com
   sender_name: root

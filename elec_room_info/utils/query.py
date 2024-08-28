@@ -42,7 +42,7 @@ class ElecRoomQuery:
         self._config: Config = kwargs.get('config')
 
         self._session = self._config['query']['session_id']
-        # self._auth_link = self._config['query']['auth_link']
+        # self._auth_link = self._cfg['query']['auth_link']
 
         # self._session = kwargs.get('session_id', None)
         # self._auth_link = kwargs.get('auth_link', None)
@@ -57,8 +57,8 @@ class ElecRoomQuery:
             # 更新config
             self._config.query.session_id = self._session
             self._config.query.auth_link = ''
-            # self._config.set('query', 'session_id', self._session)
-            # self._config.set('query', 'auth_link', '')
+            # self._cfg.set('query', 'session_id', self._session)
+            # self._cfg.set('query', 'auth_link', '')
             self._config.save()
 
         self._headers = {
@@ -167,7 +167,7 @@ class ElecRoomQuery:
             logger.debug(f'autoQuery response: {response_json}')
             if response_json == 1:
                 # session 过期
-                # self._config.set('query', 'session_id', '')
+                # self._cfg.set('query', 'session_id', '')
                 self._config.query.session_id = ''
                 self._config.save()
                 logger.critical(f'session expired, refresh your auth link')

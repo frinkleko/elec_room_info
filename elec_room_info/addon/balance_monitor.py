@@ -1,4 +1,6 @@
 """余额监控插件"""
+from datetime import datetime
+
 from elec_room_info.utils.record_csv import CSVRecordHandler
 from elec_room_info.utils.mail import EmailSender
 
@@ -16,6 +18,16 @@ class BalanceMonitor:
         self.email_sender = EmailSender(config=self._config)
         self.to_emails = self._config['balance_monitor']['to_emails']
 
+        self._last_check_email_time = None
+
+    def once(self):
+        current_time = datetime.now()
+        if self._config.addon.balance_monitor:
+            if self._last_check_email_time is None or (current_time - self._last_check_email_time).seconds > 1800:
+                self.check()
+        if self._config.addon.deposit_monitor:
+            self.deposit()
+
     def check(self):
         last_record = self.csv_handler.get_latest()
         logger.debug('last_record: %s', last_record)
@@ -29,6 +41,7 @@ class BalanceMonitor:
                 message = (f"余额不足：\n 水费余额：{last_record['water_balance']}\n 电费余额：{last_record['electricity_balance']}\n "
                            f"空调余额：{last_record['air_conditioner_balance']}")
                 self.email_sender.send_email(self.to_emails, subject=subject, message=message)
+                self._last_check_email_time = datetime.now()
 
     def deposit(self):
         # 充值检测

@@ -41,6 +41,7 @@ class Config:
         }
         conf['addon'] = {
             'balance_monitor': True,
+            'deposit_monitor': True
         }
         conf['query'] = {
             'auth_link': '',
@@ -48,7 +49,6 @@ class Config:
         }
         conf['record_csv'] = {
             'csv_file_path': 'data/records/query_data.csv',
-            'query_interval': 20 * 60,
         }
         conf['email'] = {
             'sender_email': 'mail@example.com',

@@ -9,8 +9,21 @@ import threading
 import time
 
 
-QUERY_INTERVAL = 20  # 20 * 60  # 20分钟，以秒为单位
+QUERY_INTERVAL = 120  # 2 * 60  # 2分钟，以秒为单位
 RECORD = True
+
+
+class ElecRoomInfo:
+    def __init__(self, conf: Config):
+        self._cfg = conf
+        self._query = ElecRoomQuery(config=self._cfg)
+        self._monitor = BalanceMonitor(config=self._cfg)
+
+    def run(self):
+        while True:
+            self._query.record_data()
+            self._monitor.once()
+            time.sleep(QUERY_INTERVAL)
 
 
 def start_periodic_queries(conf: DictConfig):
@@ -34,6 +47,8 @@ if __name__ == '__main__':
 
     config = Config(args.config)
 
-    if RECORD:
-        thread = threading.Thread(target=start_periodic_queries, args=[config,])  # , daemon=True
-        thread.start()
+    # if RECORD:
+    #     thread = threading.Thread(target=start_periodic_queries, args=[config,])  # , daemon=True
+    #     thread.start()
+
+    ElecRoomInfo(config).run()
