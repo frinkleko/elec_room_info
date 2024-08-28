@@ -12,7 +12,7 @@ class BalanceMonitor:
 
         self.csv_file_path = self._config['record_csv']['csv_file_path']
         self.csv_handler = CSVRecordHandler(self.csv_file_path)
-        self.threshold = eval(self._config['balance_monitor']['threshold'])
+        self.threshold = self._config.to_dict(self._config['balance_monitor']['threshold'])
         self.email_sender = EmailSender(config=self._config)
         self.to_emails = self._config['balance_monitor']['to_emails']
 
@@ -56,7 +56,7 @@ if __name__ == '__main__':
     import os
     os.chdir('../..')
     test_config = Config()
-    test_config.read('test_config.ini', encoding='utf-8')
+    test_config.load('test_config.ini', encoding='utf-8')
     monitor = BalanceMonitor(config=test_config)
     monitor.check()
     monitor.deposit()

@@ -47,7 +47,7 @@ class Config(configparser.ConfigParser):
         with CONFIG_PATH.open('w') as configfile:
             self.write(configfile)
 
-    def read(self, *args, **kwargs):
+    def load(self, *args, **kwargs):
         self.config_path = args[0]
         super().read(*args, **kwargs)
 
