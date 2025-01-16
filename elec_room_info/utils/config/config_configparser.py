@@ -22,7 +22,7 @@ class Config(configparser.ConfigParser):
         }
         self['record_csv'] = {
             'csv_file_path': 'query_data.csv',
-            'query_interval': 30 * 60,
+            'query_interval': 30 * 60
         }
         self['email'] = {
             'SENDER_EMAIL': 'mail@example.com',

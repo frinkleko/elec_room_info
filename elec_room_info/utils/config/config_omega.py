@@ -49,8 +49,10 @@ class Config:
         }
         conf['record_csv'] = {
             'csv_file_path': 'data/records/query_data.csv',
+            'query_interval': 30 * 60
         }
         conf['email'] = {
+            'enable': True,
             'sender_email': 'mail@example.com',
             'sender_name': 'root',
             'smtp_server': 'smtp.example.com',
@@ -58,7 +60,12 @@ class Config:
             'smtp_user': 'mail@example.com',
             'smtp_password': '<passwd>'
         }
-
+        conf['pushplus'] = {
+            'enable': False,
+            'token': '<token>',
+            'topic': '<topic>',
+            'channel': 'wechat'
+        }
         conf['balance_monitor'] = {
             'to_emails': 'mail@example.com',
             'threshold': {
