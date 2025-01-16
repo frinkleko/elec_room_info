@@ -3,7 +3,7 @@ from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from email.utils import formataddr
 
-from .log import get_logger
+from elec_room_info.utils.log import get_logger
 logger = get_logger(__name__)
 
 
@@ -49,14 +49,14 @@ class EmailSender:
 # 示例用法
 if __name__ == "__main__":
     TEST_CONFIG = {
-        'SENDER_EMAIL': '3265168281@qq.com',
+        'SENDER_EMAIL': 'xxx@example.com',
         'SENDER_NAME': 'root',
-        'SMTP_SERVER': 'smtp.qq.com',
+        'SMTP_SERVER': 'smtp.example.com',
         'SMTP_PORT': 587,
-        'SMTP_USER': '3265168281@qq.com',
-        'SMTP_PASSWORD': 'xzcedkulvpqfcjbi'
+        'SMTP_USER': 'xxx@example.com',
+        'SMTP_PASSWORD': 'passwd'
     }
-    recipient = '3265168281@qq.com'  # 接收邮件的邮箱地址
+    recipient = 'xxx@example.com'  # 接收邮件的邮箱地址
     subject = '系统提醒'
     message = '这是一封系统提醒邮件。'
 

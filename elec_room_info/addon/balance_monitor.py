@@ -2,7 +2,7 @@
 from datetime import datetime
 
 from elec_room_info.utils.record_csv import CSVRecordHandler
-from elec_room_info.utils.mail import EmailSender
+from elec_room_info.utils.message_sender.mail import EmailSender
 
 from elec_room_info.utils.log import get_logger
 logger = get_logger(__name__)
@@ -37,7 +37,7 @@ class BalanceMonitor:
                 last_record['air_conditioner_balance'] < self.threshold['air_conditioner_balance']:
             logger.info(f'余额不足: {last_record}')
             if self.email_sender:
-                subject = 'Dorm Electricity Balance Warning'
+                subject = 'Dorm Balance Warning'
                 message = (f"余额不足：\n 水费余额：{last_record['water_balance']}\n 电费余额：{last_record['electricity_balance']}\n "
                            f"空调余额：{last_record['air_conditioner_balance']}")
                 self.email_sender.send_email(self.to_emails, subject=subject, message=message)
