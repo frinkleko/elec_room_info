@@ -63,8 +63,9 @@ class Config:
         conf['pushplus'] = {
             'enable': False,
             'token': '<token>',
-            'topic': '<topic>',
-            'channel': 'wechat'
+            'topic': '',
+            'channel': 'wechat',
+            'max_attempts': 3
         }
         conf['balance_monitor'] = {
             'to_emails': 'mail@example.com',

@@ -15,22 +15,33 @@ class Config(configparser.ConfigParser):
         }
         self['addon'] = {
             'balance_monitor': 'True',
+            'deposit_monitor': 'True'
         }
         self['query'] = {
             'auth_link': '',
             'session_id': ''
         }
         self['record_csv'] = {
-            'csv_file_path': 'query_data.csv',
+            'csv_file_path': 'data/records/query_data.csv',
             'query_interval': 30 * 60
         }
         self['email'] = {
-            'SENDER_EMAIL': 'mail@example.com',
-            'SENDER_NAME': 'root',
-            'SMTP_SERVER': 'smtp.example.com',
-            'SMTP_PORT': 587,
-            'SMTP_USER': 'mail@example.com',
-            'SMTP_PASSWORD': '<passwd>'
+            'enable': 'True',
+            'sender_email': 'mail@example.com',
+            'sender_name': 'root',
+            'smtp_server': 'smtp.example.com',
+            'smtp_port': 587,
+            'smtp_user': 'mail@example.com',
+            'smtp_password': '<passwd>',
+            'max_attempts': '3'
+        }
+
+        self['pushplus'] = {
+            'enable': 'False',
+            'token': '<token>',
+            'topic': '',
+            'channel': 'wechat',
+            'max_attempts': '3'
         }
 
         self['balance_monitor'] = {

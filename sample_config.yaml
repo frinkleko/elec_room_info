@@ -16,11 +16,13 @@ email:
   smtp_port: 587
   smtp_user: mail@example.com
   smtp_password: <passwd>
+  max_attempts: 3
 pushplus:
   enable: False
   token: <token>
   topic:
   channel: wechat
+  max_attempts: 3
 balance_monitor:
   to_emails: mail@example.com
   threshold:
