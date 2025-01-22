@@ -3,29 +3,32 @@ addon:
   balance_monitor: true
   deposit_monitor: true
 query:
+  cookies:
+    TGC: ''
+    UserId: ''
+  bearer_token: ''
   auth_link: ''
   session_id: ''
 record_csv:
-  csv_file_path: data/records/query_data.csv
-  query_interval: 30 * 60
+  csv_file_path: ../data/records/query_data.csv
+  query_interval: 1200
 email:
-  enable: True
+  enable: false
   sender_email: mail@example.com
   sender_name: root
   smtp_server: smtp.example.com
   smtp_port: 587
   smtp_user: mail@example.com
   smtp_password: <passwd>
-  max_attempts: 3
 pushplus:
-  enable: False
+  enable: false
   token: <token>
-  topic:
+  topic: ''
   channel: wechat
   max_attempts: 3
 balance_monitor:
   to_emails: mail@example.com
   threshold:
-    water_balance: 1
-    electricity_balance: 3
-    air_conditioner_balance: 5
+    water_balance: 5
+    electricity_balance: 5
+    air_conditioner_balance: 8

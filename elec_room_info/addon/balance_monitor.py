@@ -46,7 +46,8 @@ class BalanceMonitor:
     def deposit(self):
         # 充值检测
         last_record = self.csv_handler.get_latest()
-        last_second_record = self.csv_handler.get(-2)
+        last_second_record = self.csv_handler.get_last_second()
+        if last_record is None or last_second_record is None: return
 
         message = ''
 

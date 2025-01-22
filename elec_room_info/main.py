@@ -1,16 +1,17 @@
+import argparse
+import threading
+import time
+
 from utils.query import ElecRoomQuery
 from utils.config import Config
 from omegaconf import DictConfig, OmegaConf
 from addon import BalanceMonitor
 
+from elec_room_info.utils.log import get_logger
+logger = get_logger(__name__)
 
-import argparse
-import threading
-import time
-
-
-QUERY_INTERVAL = 120  # 2 * 60  # 2分钟，以秒为单位
-RECORD = True
+# QUERY_INTERVAL = 120  # 2 * 60  # 2分钟，以秒为单位
+# RECORD = True
 
 
 class ElecRoomInfo:
@@ -18,12 +19,15 @@ class ElecRoomInfo:
         self._cfg = conf
         self._query = ElecRoomQuery(config=self._cfg)
         self._monitor = BalanceMonitor(config=self._cfg)
+        self._query_interval = self._cfg['record_csv']['query_interval']
 
     def run(self):
         while True:
             self._query.record_data()
             self._monitor.once()
-            time.sleep(QUERY_INTERVAL)
+            logger.info(f"休眠 {self._query_interval} 秒，下次查询时间："
+                        f"{time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time() + self._query_interval))}")
+            time.sleep(self._query_interval)
 
 
 def start_periodic_queries(conf: DictConfig):
@@ -39,7 +43,7 @@ def start_periodic_queries(conf: DictConfig):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument('-c', '--config', help='config file', default="data/configs/config.yaml")
+    parser.add_argument('-c', '--config', help='config file', default="../data/configs/config.yaml")
     args = parser.parse_args()
 
     # config = Config()
