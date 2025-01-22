@@ -1,7 +1,7 @@
 import configparser
-import pathlib
+from pathlib import Path
 
-CONFIG_PATH = pathlib.Path('data/configs/config.ini')
+CONFIG_PATH = Path(__file__).parents[3] / 'data' / 'configs' / 'config.ini'
 
 
 class Config(configparser.ConfigParser):
@@ -18,15 +18,20 @@ class Config(configparser.ConfigParser):
             'deposit_monitor': 'True'
         }
         self['query'] = {
+            'cookies': {
+                'TGC': '',
+                'UserId': ''
+            },
+            "bearer_token": '',
             'auth_link': '',
             'session_id': ''
         }
         self['record_csv'] = {
-            'csv_file_path': 'data/records/query_data.csv',
-            'query_interval': 30 * 60
+            'csv_file_path': '../data/records/query_data.csv',
+            'query_interval': 20 * 60
         }
         self['email'] = {
-            'enable': 'True',
+            'enable': 'False',
             'sender_email': 'mail@example.com',
             'sender_name': 'root',
             'smtp_server': 'smtp.example.com',
@@ -47,13 +52,14 @@ class Config(configparser.ConfigParser):
         self['balance_monitor'] = {
             'to_emails': 'mail@example.com',
             'threshold': {
-                'water_balance': 1,
-                'electricity_balance': 3,
-                'air_conditioner_balance': 5
+                'water_balance': 5,
+                'electricity_balance': 5,
+                'air_conditioner_balance': 8
             }
         }
 
         if not CONFIG_PATH.exists():
+            CONFIG_PATH.parent.mkdir(parents=True, exist_ok=True)
             CONFIG_PATH.touch()
         with CONFIG_PATH.open('w') as configfile:
             self.write(configfile)
