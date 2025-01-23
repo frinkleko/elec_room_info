@@ -1,3 +1,4 @@
+import json
 import requests
 
 from elec_room_info.utils.log import get_logger
