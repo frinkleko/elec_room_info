@@ -71,7 +71,7 @@
 | 参数                | 类型    | 说明                     | 默认值  |
 |---------------------|---------|--------------------------|---------|
 | `balance_monitor`   | boolean | 启用余额监控功能         | `true`  |
-| `deposit_monitor`   | boolean | 启用重置监控功能         | `true`  |
+| `deposit_monitor`   | boolean | 启用充值监控功能         | `true`  |
 
 ---
 
