@@ -18,10 +18,6 @@ class Config(configparser.ConfigParser):
             'deposit_monitor': 'True'
         }
         self['query'] = {
-            'cookies': {
-                'TGC': '',
-                'UserId': ''
-            },
             "bearer_token": '',
             'auth_link': '',
             'session_id': ''

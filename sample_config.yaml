@@ -3,9 +3,6 @@ addon:
   balance_monitor: true
   deposit_monitor: true
 query:
-  cookies:
-    TGC: ''
-    UserId: ''
   bearer_token: ''
   auth_link: ''
   session_id: ''

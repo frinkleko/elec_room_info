@@ -1,7 +1,6 @@
 import random
 import requests
 from datetime import datetime
-from http.cookies import SimpleCookie
 
 from .record_csv import CSVRecordHandler
 from .config import Config
@@ -42,8 +41,6 @@ class ElecRoomQuery:
         """
         self._config: Config = kwargs.get('config')
 
-        cookies_str = self._config['query']['cookies']
-        self._cookies = self._config['query']['cookies']
         self._bearer_token = self._config['query']['bearer_token']
 
         # self._session = self._config['query']['session_id']
@@ -56,8 +53,8 @@ class ElecRoomQuery:
         #     logger.error('ElecRoomQuery needs session_id or auth_link')
         #     raise ValueError('ElecRoomQuery needs session_id or auth_link')
 
-        if self._cookies == '' or self._bearer_token == '':
-            logger.error("无 Cookie 或 bearer token!")
+        if self._bearer_token == '':
+            logger.error("无 bearer token!")
             raise
 
         self._headers = {
@@ -148,7 +145,7 @@ class ElecRoomQuery:
         # }
 
         try:
-            response = requests.get(url, cookies=self._cookies, headers=self._headers)
+            response = requests.get(url, headers=self._headers)
             response.raise_for_status()  # 如果请求失败，会抛出异常
             logger.debug(f'queryElecRoomInfo response: {response.json()}')
             # print('Query response:', response.json())
