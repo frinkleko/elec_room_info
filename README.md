@@ -15,6 +15,7 @@
 ### v0.2.0
 
 - [x] 新一卡通系统适配
+- [x] Pushplus 微信推送
 
 ### v0.1.0
 
@@ -78,7 +79,6 @@
 ### 2. `query` - 数据查询配置
 | 参数            | 类型   | 说明                          | 必填  |
 |-----------------|--------|-------------------------------|-------|
-| `cookies`| string | Cookie                | 是    |
 | `bearer_token`  | string | Bearer Token       | 是    |
 | `auth_link`     | string | 认证 URL（暂被弃用）                  | 否    |
 | `session_id`    | string | 会话 ID  （暂被弃用）                     | 否    |
@@ -106,7 +106,7 @@
 
 ---
 
-### 5. `pushplus` - 微信推送配置
+### 5. `pushplus` - 微信推送配置 (详细参数请移步[官网文档](https://www.pushplus.plus/push2.html)了解)
 | 参数            | 类型    | 说明                          | 示例值       |
 |-----------------|---------|-------------------------------|-------------|
 | `enable`        | boolean | 启用 PushPlus 推送            | `false`     |
