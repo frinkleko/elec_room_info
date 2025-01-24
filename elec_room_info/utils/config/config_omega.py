@@ -44,13 +44,16 @@ class Config:
             'deposit_monitor': True
         }
         conf['query'] = {
+            "bearer_token": '',
             'auth_link': '',
             'session_id': ''
         }
         conf['record_csv'] = {
-            'csv_file_path': 'data/records/query_data.csv',
+            'csv_file_path': '../data/records/query_data.csv',
+            'query_interval': 20 * 60
         }
         conf['email'] = {
+            'enable': False,
             'sender_email': 'mail@example.com',
             'sender_name': 'root',
             'smtp_server': 'smtp.example.com',
@@ -58,17 +61,24 @@ class Config:
             'smtp_user': 'mail@example.com',
             'smtp_password': '<passwd>'
         }
-
+        conf['pushplus'] = {
+            'enable': False,
+            'token': '<token>',
+            'topic': '',
+            'channel': 'wechat',
+            'max_attempts': 3
+        }
         conf['balance_monitor'] = {
             'to_emails': 'mail@example.com',
             'threshold': {
-                'water_balance': 1,
-                'electricity_balance': 3,
-                'air_conditioner_balance': 5
+                'water_balance': 5,
+                'electricity_balance': 5,
+                'air_conditioner_balance': 8
             }
         }
 
         if not path.exists():
+            path.parent.mkdir(parents=True, exist_ok=True)
             path.touch()
         with path.open('w') as f:
             OmegaConf.save(conf, f)

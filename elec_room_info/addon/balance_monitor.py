@@ -2,7 +2,8 @@
 from datetime import datetime
 
 from elec_room_info.utils.record_csv import CSVRecordHandler
-from elec_room_info.utils.mail import EmailSender
+from elec_room_info.utils.message_sender.mail import EmailSender
+from elec_room_info.utils.message_sender.sender import Sender
 
 from elec_room_info.utils.log import get_logger
 logger = get_logger(__name__)
@@ -15,8 +16,7 @@ class BalanceMonitor:
         self.csv_file_path = self._config['record_csv']['csv_file_path']
         self.csv_handler = CSVRecordHandler(self.csv_file_path)
         self.threshold = self._config.to_dict(self._config['balance_monitor']['threshold'])
-        self.email_sender = EmailSender(config=self._config)
-        self.to_emails = self._config['balance_monitor']['to_emails']
+        self.sender = Sender(config=self._config)
 
         self._last_check_email_time = None
 
@@ -36,17 +36,18 @@ class BalanceMonitor:
                 last_record['electricity_balance'] < self.threshold['electricity_balance'] or \
                 last_record['air_conditioner_balance'] < self.threshold['air_conditioner_balance']:
             logger.info(f'余额不足: {last_record}')
-            if self.email_sender:
-                subject = 'Dorm Electricity Balance Warning'
-                message = (f"余额不足：\n 水费余额：{last_record['water_balance']}\n 电费余额：{last_record['electricity_balance']}\n "
-                           f"空调余额：{last_record['air_conditioner_balance']}")
-                self.email_sender.send_email(self.to_emails, subject=subject, message=message)
-                self._last_check_email_time = datetime.now()
+            subject = 'Dorm Balance Warning'
+            message = (f"余额不足：\n 水费余额：{last_record['water_balance']}\n 电费余额：{last_record['electricity_balance']}\n "
+                       f"空调余额：{last_record['air_conditioner_balance']}")
+            self.sender.send(subject=subject, message=message)
+            self._last_check_email_time = datetime.now()
+
 
     def deposit(self):
         # 充值检测
         last_record = self.csv_handler.get_latest()
-        last_second_record = self.csv_handler.get(-2)
+        last_second_record = self.csv_handler.get_last_second()
+        if last_record is None or last_second_record is None: return
 
         message = ''
 
@@ -61,7 +62,7 @@ class BalanceMonitor:
         if message != '':
             logger.info(f'检测到充值: {last_record}')
             subject = 'Dorm Deposit Sniffer'
-            self.email_sender.send_email(self.to_emails, subject=subject, message=message)
+            self.sender.send(subject=subject, message=message)
 
 
 if __name__ == '__main__':

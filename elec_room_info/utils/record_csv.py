@@ -1,14 +1,14 @@
 import csv
 import pandas as pd
 from datetime import datetime
-import pathlib
+from pathlib import Path
 
 from .log import get_logger
 logger = get_logger(__name__)
 
 
 # 文件路径
-CSV_FILE_PATH = 'data/records/query_data.csv'
+CSV_FILE_PATH = '../data/records/query_data.csv'
 
 
 class CSVRecordHandler:
@@ -20,8 +20,9 @@ class CSVRecordHandler:
 
     def init_csv(self):
         # 检查文件是否存在
-        if not pathlib.Path(self._CSV_FILE_PATH).exists():
+        if not Path(self._CSV_FILE_PATH).exists():
             # 如果文件不存在，则创建文件并写入表头
+            Path(self._CSV_FILE_PATH).parent.mkdir(parents=True, exist_ok=True)
             with open(self._CSV_FILE_PATH, mode='w', newline='', encoding='utf-8') as file:
                 writer = csv.writer(file)
                 writer.writerow(['timestamp', 'water_balance', 'electricity_balance', 'air_conditioner_balance'])
@@ -54,9 +55,11 @@ class CSVRecordHandler:
             'air_conditioner_balance': last_row['air_conditioner_balance'][0]
         }
 
-    def get(self, line: int):
+    def get_last_second(self):
         csv_data = pd.read_csv(self._CSV_FILE_PATH)
-        line_data = csv_data.iloc[line]
+        if len(csv_data) < 2:
+            return None
+        line_data = csv_data.iloc[-2]
         return {
             'timestamp': line_data['timestamp'],
             'water_balance': line_data['water_balance'],
@@ -80,6 +83,3 @@ if __name__ == '__main__':
     # recorder.record(query_response)
 
     print(recorder.get_latest())
-    print(recorder.get(1))
-    print(recorder.get(-2))
-    print(recorder.get(-1))
