@@ -44,10 +44,6 @@ class Config:
             'deposit_monitor': True
         }
         conf['query'] = {
-            'cookies': {
-                'TGC': '',
-                'UserId': ''
-            },
             "bearer_token": '',
             'auth_link': '',
             'session_id': ''
