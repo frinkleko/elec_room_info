@@ -3,12 +3,12 @@ addon:
   balance_monitor: true
   deposit_monitor: true
 query:
-  bearer_token: ''
+  bearer_token: <token>
   auth_link: ''
   session_id: ''
 record_csv:
-  csv_file_path: ../data/records/query_data.csv
-  query_interval: 1200
+  csv_file_path: ''
+  query_interval: 60
 email:
   enable: false
   sender_email: mail@example.com
@@ -22,6 +22,10 @@ pushplus:
   token: <token>
   topic: ''
   channel: wechat
+  max_attempts: 3
+wxpusher:
+  enable: false
+  spt: <spt>
   max_attempts: 3
 balance_monitor:
   to_emails: mail@example.com

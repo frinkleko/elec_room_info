@@ -49,8 +49,8 @@ class Config:
             'session_id': ''
         }
         conf['record_csv'] = {
-            'csv_file_path': '../data/records/query_data.csv',
-            'query_interval': 20 * 60
+            'csv_file_path': '',
+            'query_interval': 1 * 60
         }
         conf['email'] = {
             'enable': False,

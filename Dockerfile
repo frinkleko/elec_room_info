@@ -1,9 +1,10 @@
 FROM python:3.8
 
-WORKDIR /app/elec_room_info
+WORKDIR /app
 
 COPY elec_room_info/ /app/elec_room_info/
 COPY requirements.txt .
+COPY main.py .
 
 RUN mkdir /app/data && mkdir /app/data/configs && mkdir /app/data/logs && mkdir /app/data/records
 
@@ -19,4 +20,4 @@ RUN python3 /app/elec_room_info/utils/config/config_omega.py
 
 # EXPOSE 7010
 
-CMD ["python3", "./main.py", "-c", "../data/configs/config.yaml"]
+CMD ["python3", "./main.py", "-c", "./data/configs/config.yaml"]
