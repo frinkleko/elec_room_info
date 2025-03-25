@@ -110,7 +110,7 @@
 
 ---
 
-### 5. `pushplus` - 微信推送配置 (详细参数请移步[官网文档](https://www.pushplus.plus/push2.html)了解)
+### 5. `pushplus` - pushplus 微信推送配置 (详细参数请移步[官网文档](https://www.pushplus.plus/push2.html)了解)
 | 参数            | 类型    | 说明                          | 示例值       |
 |-----------------|---------|-------------------------------|-------------|
 | `enable`        | boolean | 启用 PushPlus 推送            | `false`     |
@@ -121,7 +121,16 @@
 
 ---
 
-### 6. `balance_monitor` - 余额监控配置
+### 6. `wxpusher` - Wxpusher 微信推送配置
+| 参数            | 类型    | 说明                          | 示例值       |
+|-----------------|---------|-------------------------------|-------------|
+| `enable`        | boolean | 启用 Wxpusher 推送            | `false`     |
+| `spt  `         | string  | Wxpusher SPT 令牌（[获取链接](https://wxpusher.zjiecode.com/docs/#/?id=%e8%8e%b7%e5%8f%96spt)）     | `<token>`   |
+| `max_attempts`  | int     | 失败重试次数                  | `3`         |
+
+---
+
+### 7. `balance_monitor` - 余额监控配置
 | 参数                          | 类型   | 说明                          | 示例值               |
 |-------------------------------|--------|-------------------------------|---------------------|
 | `to_emails`                   | string | 告警接收邮箱（若邮箱推送未启用将被忽略）                  | `mail@example.com` |
