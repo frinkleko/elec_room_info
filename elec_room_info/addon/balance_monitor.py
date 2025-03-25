@@ -36,7 +36,7 @@ class BalanceMonitor:
                 last_record['electricity_balance'] < self.threshold['electricity_balance'] or \
                 last_record['air_conditioner_balance'] < self.threshold['air_conditioner_balance']:
             logger.info(f'余额不足: {last_record}')
-            subject = 'Dorm Balance Warning'
+            subject = '宿舍余额预警'
             message = (f"余额不足：\n 水费余额：{last_record['water_balance']}\n 电费余额：{last_record['electricity_balance']}\n "
                        f"空调余额：{last_record['air_conditioner_balance']}")
             self.sender.send(subject=subject, message=message)
@@ -47,6 +47,8 @@ class BalanceMonitor:
         # 充值检测
         last_record = self.csv_handler.get_latest()
         last_second_record = self.csv_handler.get_last_second()
+        logger.debug('last_record: %s', last_record)
+        logger.debug('last_second_record: %s', last_second_record)
         if last_record is None or last_second_record is None: return
 
         message = ''
@@ -61,7 +63,7 @@ class BalanceMonitor:
 
         if message != '':
             logger.info(f'检测到充值: {last_record}')
-            subject = 'Dorm Deposit Sniffer'
+            subject = '宿舍充值检测'
             self.sender.send(subject=subject, message=message)
 
 

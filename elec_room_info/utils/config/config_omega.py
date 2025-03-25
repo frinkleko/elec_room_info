@@ -68,6 +68,11 @@ class Config:
             'channel': 'wechat',
             'max_attempts': 3
         }
+        conf['wxpusher'] = {
+            'enable': False,
+            'spt': '<token>',
+            'max_attempts': 3
+        }
         conf['balance_monitor'] = {
             'to_emails': 'mail@example.com',
             'threshold': {

@@ -1,7 +1,8 @@
 import logging
 import pathlib
 
-LOG_PATH = pathlib.Path("../data/logs/app.log")
+# LOG_PATH = pathlib.Path("../data/logs/app.log")
+LOG_PATH = pathlib.Path(__package__).absolute().parent / "data" / "logs" / "app.log"
 
 
 def setup_logger(level):

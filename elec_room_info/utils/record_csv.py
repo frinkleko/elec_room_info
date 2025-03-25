@@ -8,12 +8,13 @@ logger = get_logger(__name__)
 
 
 # 文件路径
-CSV_FILE_PATH = '../data/records/query_data.csv'
+# CSV_FILE_PATH = './data/records/query_data.csv'
+CSV_FILE_PATH = Path(__package__).absolute().parent / 'data' / 'records' / 'query_data.csv'
 
 
 class CSVRecordHandler:
     def __init__(self, csv_file_path=None):
-        if csv_file_path is None:
+        if csv_file_path is None or csv_file_path == '':
             csv_file_path = CSV_FILE_PATH
         self._CSV_FILE_PATH = csv_file_path
         self.init_csv()
@@ -28,7 +29,7 @@ class CSVRecordHandler:
                 writer.writerow(['timestamp', 'water_balance', 'electricity_balance', 'air_conditioner_balance'])
             logger.debug(f'CSV file {self._CSV_FILE_PATH} created')
         else:
-            logger.debug("CSV file already exists.")
+            logger.debug(f"CSV file {self._CSV_FILE_PATH} already exists.")
 
     def record(self, data):
         """
