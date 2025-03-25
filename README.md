@@ -125,7 +125,9 @@
 | 参数            | 类型    | 说明                          | 示例值       |
 |-----------------|---------|-------------------------------|-------------|
 | `enable`        | boolean | 启用 Wxpusher 推送            | `false`     |
-| `spt  `         | string  | Wxpusher SPT 令牌（[获取链接](https://wxpusher.zjiecode.com/docs/#/?id=%e8%8e%b7%e5%8f%96spt)）     | `<token>`   |
+| `spt  `         | string  | Wxpusher SPT 令牌（[获取链接](https://wxpusher.zjiecode.com/docs/#/?id=%e8%8e%b7%e5%8f%96spt)）     | `<spt>`   |
+| `app_token`         | string  | Wxpusher APP 令牌（官网获取）     | `<app_token>`   |
+| `topic_ids`         | list  | 主题 id（官网获取）     | `[12345]`   |
 | `max_attempts`  | int     | 失败重试次数                  | `3`         |
 
 ---

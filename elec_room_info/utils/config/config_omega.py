@@ -71,6 +71,8 @@ class Config:
         conf['wxpusher'] = {
             'enable': False,
             'spt': '<token>',
+            'app_token': '<token>',
+            'topic_ids': [],
             'max_attempts': 3
         }
         conf['balance_monitor'] = {
@@ -90,7 +92,7 @@ class Config:
 
 
 if __name__ == '__main__':
-    CONFIG_PATH = Path(__file__).parents[3] / 'data' / 'configs' / 'config.yaml'
+    CONFIG_PATH = Path(__file__).parents[3] / 'data' / 'configs' / 'sample_config.yaml'
     Config.auto_config(CONFIG_PATH)
 
     config = Config(CONFIG_PATH)
